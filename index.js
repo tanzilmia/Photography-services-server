@@ -20,6 +20,12 @@ async function run(){
    try{
     const photographServices = client.db("DreamPhotoGraphy").collection("Services");
 
+     app.get('/', async (req,res)=>{
+        const query = {}
+        const cursor = photographServices.find(query);
+        const services = await cursor.limit(3).toArray()
+        res.send(services)
+     })
      app.get('/services', async (req,res)=>{
         const query = {}
         const cursor = photographServices.find(query);
@@ -28,22 +34,14 @@ async function run(){
      })
 
      
+
+     
    }
    finally{
 
    }
 }
 run().catch(err => console.log(err))
-
-
-
-
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-
 
 
 app.listen(port, () => {
