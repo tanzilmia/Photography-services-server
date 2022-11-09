@@ -51,6 +51,20 @@ async function run(){
     })
 
 
+    app.put('/userreview/:id', async (req,res)=>{
+      const id = req.params.id
+      const query = { _id: ObjectId(id) }
+      const options = { upsert: true }
+      const edite = req.body
+      const updateDoc = {
+        $set: {
+         review : edite.review
+        },
+      };
+      
+      const result = await photographReview.updateOne(query, updateDoc, options);
+      res.send(result)
+    })
 
 
 
@@ -83,6 +97,16 @@ async function run(){
      })
 
 
+     app.get('/edite/:id', async (req,res)=>{
+      const id = req.params.id
+      const query = { _id: ObjectId(id) }
+      const eteded = await photographReview.findOne(query)
+      res.send(eteded) 
+    
+    })
+
+
+
      app.delete('/userreview/:id', async (req,res)=>{
       const id = req.params.id
       const query = { _id: ObjectId(id)}
@@ -91,6 +115,9 @@ async function run(){
     })
 
    }
+
+
+
    finally{
 
    }
