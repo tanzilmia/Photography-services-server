@@ -75,7 +75,8 @@ async function run(){
      app.get('/', async (req,res)=>{
         const query = {}
         const cursor = photographServices.find(query);
-        const services = await cursor.limit(3).toArray()
+        const services = await cursor.toArray()
+      //   const services = await cursor.limit(3).toArray()
         res.send(services)
      })
 
