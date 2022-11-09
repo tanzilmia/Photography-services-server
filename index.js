@@ -33,10 +33,14 @@ async function run(){
             service_name : req.query.service_name
          }
       }
+   
       const cursor = photographReview.find(query);
-      const reviews = await cursor.toArray()
+      const reviews = await cursor.sort({time:'-1'}).toArray()
       res.send(reviews)
     })
+
+
+
 
     app.get('/myreviw', async (req,res)=>{
       let query = {}
