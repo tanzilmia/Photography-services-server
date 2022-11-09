@@ -24,6 +24,8 @@ async function run(){
       const result = await photographReview.insertOne(review)
       res.send(result)
     })
+
+
     app.get('/userreview', async (req,res)=>{
       let query = {}
       if(req.query.service_name){
@@ -31,14 +33,23 @@ async function run(){
             service_name : req.query.service_name
          }
       }
-
       const cursor = photographReview.find(query);
       const reviews = await cursor.toArray()
       res.send(reviews)
-      
     })
 
-   
+    app.get('/myreviw', async (req,res)=>{
+      let query = {}
+      if(req.query.email){
+         query = {
+            email : req.query.email
+         }
+      }
+      const cursor = photographReview.find(query);
+      const myreview = await cursor.toArray()
+      res.send(myreview)
+    })
+
 
 
 
@@ -49,6 +60,14 @@ async function run(){
         const services = await cursor.limit(3).toArray()
         res.send(services)
      })
+
+     app.post('/services', async (req,res)=>{
+      const addservices = req.body
+      const result = await photographServices.insertOne(addservices)
+      res.send(result)
+    })
+
+
      app.get('/services', async (req,res)=>{
         const query = {}
         const cursor = photographServices.find(query);
@@ -63,10 +82,14 @@ async function run(){
         res.send(service)
      })
 
-     
-     
 
-     
+     app.delete('/userreview/:id', async (req,res)=>{
+      const id = req.params.id
+      const query = { _id: ObjectId(id)}
+      const result = await photographReview.deleteOne(query)
+      res.send(result)
+    })
+
    }
    finally{
 
