@@ -28,9 +28,9 @@ async function run(){
 
     app.get('/userreview', async (req,res)=>{
       let query = {}
-      if(req.query.service_name){
+      if(req.query._id){
          query = {
-            service_name : req.query.service_name
+            service_name : req.query._id
          }
       }
    
