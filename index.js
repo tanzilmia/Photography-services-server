@@ -28,9 +28,9 @@ async function run(){
 
     app.get('/userreview', async (req,res)=>{
       let query = {}
-      if(req.query._id){
+      if(req.query.service_name){
          query = {
-            service_name : req.query._id
+            service_name : req.query.service_name
          }
       }
    
@@ -72,29 +72,30 @@ async function run(){
 
 
 
-     app.get('/', async (req,res)=>{
+     app.get('/shortservice', async (req,res)=>{
         const query = {}
         const cursor = photographServices.find(query);
-        const services = await cursor.toArray()
-      //   const services = await cursor.limit(3).toArray()
+        const services = await cursor.limit(3).toArray()
         res.send(services)
      })
 
-     app.post('/services', async (req,res)=>{
+   //   app.post('/services', async (req,res)
+     app.post('/', async (req,res)=>{
       const addservices = req.body
       const result = await photographServices.insertOne(addservices)
       res.send(result)
     })
 
-
-     app.get('/services', async (req,res)=>{
+//   app.post('/services', async (req,res)
+     app.get('/', async (req,res)=>{
         const query = {}
         const cursor = photographServices.find(query);
         const services = await cursor.toArray()
         res.send(services)
      })
 
-     app.get('/services/:id', async (req,res)=>{
+   //   app.get('/services/:id', async (req,res)
+     app.get('/:id', async (req,res)=>{
         const id = req.params.id
         const query = { _id:ObjectId(id)}
         const service = await photographServices.findOne(query)
