@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
@@ -23,7 +23,7 @@ function verifyJWt (req,res,next){
 
     }
     const token = authHeader.split(' ')[1] 
-    jwt.verify(token, process.env.ACCESS_TOKEN, function(err,decoded){
+    jwt.verify(token, process.env.ASSCESS_TOKEN, function(err,decoded){
       if(err){
         return res.status(403).send({message: 'forbidden Access'})
       }
@@ -49,7 +49,7 @@ async function run(){
 
     app.post('/jwt', (req,res)=>{   
       const user = req.body 
-      const token = jwt.sign(user,process.env.ACCESS_TOKEN, {expiresIn:'1h'})
+      const token = jwt.sign(user,process.env.ASSCESS_TOKEN, {expiresIn: '1h'})
       res.send({token}) 
     })
 
